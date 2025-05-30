@@ -9,6 +9,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A76E7E56
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustRetail.IdentityService.Domain", "src\RustRetail.IdentityService.Domain\RustRetail.IdentityService.Domain.csproj", "{E36CD010-D475-477D-A8FD-DEEB39A1BFFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustRetail.IdentityService.Application", "src\RustRetail.IdentityService.Application\RustRetail.IdentityService.Application.csproj", "{1DB3E6B1-C45B-414E-B19E-70A001434C44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustRetail.IdentityService.Persistence", "src\RustRetail.IdentityService.Persistence\RustRetail.IdentityService.Persistence.csproj", "{1C484FBE-1207-4451-8FFB-A82B2E8693E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustRetail.IdentityService.Infrastructure", "src\RustRetail.IdentityService.Infrastructure\RustRetail.IdentityService.Infrastructure.csproj", "{F879FA58-71C0-48C7-9B4F-D86827F915FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustRetail.IdentityService.API", "src\RustRetail.IdentityService.API\RustRetail.IdentityService.API.csproj", "{9DEE0E5B-C768-449D-BB08-AA03D7338FA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,12 +27,32 @@ Global
 		{E36CD010-D475-477D-A8FD-DEEB39A1BFFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E36CD010-D475-477D-A8FD-DEEB39A1BFFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E36CD010-D475-477D-A8FD-DEEB39A1BFFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DB3E6B1-C45B-414E-B19E-70A001434C44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB3E6B1-C45B-414E-B19E-70A001434C44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DB3E6B1-C45B-414E-B19E-70A001434C44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DB3E6B1-C45B-414E-B19E-70A001434C44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C484FBE-1207-4451-8FFB-A82B2E8693E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C484FBE-1207-4451-8FFB-A82B2E8693E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C484FBE-1207-4451-8FFB-A82B2E8693E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C484FBE-1207-4451-8FFB-A82B2E8693E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F879FA58-71C0-48C7-9B4F-D86827F915FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F879FA58-71C0-48C7-9B4F-D86827F915FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F879FA58-71C0-48C7-9B4F-D86827F915FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F879FA58-71C0-48C7-9B4F-D86827F915FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DEE0E5B-C768-449D-BB08-AA03D7338FA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DEE0E5B-C768-449D-BB08-AA03D7338FA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DEE0E5B-C768-449D-BB08-AA03D7338FA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DEE0E5B-C768-449D-BB08-AA03D7338FA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E36CD010-D475-477D-A8FD-DEEB39A1BFFD} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1DB3E6B1-C45B-414E-B19E-70A001434C44} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1C484FBE-1207-4451-8FFB-A82B2E8693E4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{F879FA58-71C0-48C7-9B4F-D86827F915FF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9DEE0E5B-C768-449D-BB08-AA03D7338FA6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E14A1626-207B-4B2F-B433-5A0BFA373C36}
