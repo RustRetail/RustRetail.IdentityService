@@ -11,6 +11,9 @@ namespace RustRetail.IdentityService.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<UserToken> builder)
         {
             builder.ToTable(TableName);
+
+            builder.HasIndex(x => new { x.UserId, x.Provider, x.Name })
+                .IsUnique();
         }
     }
 }

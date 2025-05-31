@@ -11,6 +11,8 @@ namespace RustRetail.IdentityService.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder.ToTable(TableName);
+
+            builder.HasKey(x => new { x.UserId, x.RoleId });
         }
     }
 }

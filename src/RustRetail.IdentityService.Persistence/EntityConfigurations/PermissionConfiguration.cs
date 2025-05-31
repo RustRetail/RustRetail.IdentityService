@@ -11,6 +11,9 @@ namespace RustRetail.IdentityService.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Permission> builder)
         {
             builder.ToTable(TableName);
+
+            builder.HasIndex(x => new { x.RoleId, x.Name })
+                .IsUnique();
         }
     }
 }

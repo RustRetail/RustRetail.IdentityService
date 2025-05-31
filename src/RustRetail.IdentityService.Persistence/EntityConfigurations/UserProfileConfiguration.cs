@@ -4,16 +4,15 @@ using RustRetail.IdentityService.Domain.Entities;
 
 namespace RustRetail.IdentityService.Persistence.EntityConfigurations
 {
-    internal class UserLoginConfiguration : IEntityTypeConfiguration<UserLogin>
+    internal class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
     {
-        const string TableName = "UserLogins";
+        const string TableName = "UserProfiles";
 
-        public void Configure(EntityTypeBuilder<UserLogin> builder)
+        public void Configure(EntityTypeBuilder<UserProfile> builder)
         {
             builder.ToTable(TableName);
 
-            builder.HasIndex(x => new { x.UserId, x.LoginProvider })
-                .IsUnique();
+            builder.HasKey(x => x.Id);
         }
     }
 }

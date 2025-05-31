@@ -11,6 +11,18 @@ namespace RustRetail.IdentityService.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.ToTable(TableName);
+
+            builder.HasIndex(x => x.NormalizedName)
+                .IsUnique();
+
+            builder.HasMany(x => x.Permissions)
+                .WithOne(x => x.Role)
+                .HasForeignKey(x => x.RoleId)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(x => x.Users)
+                .WithOne(x => x.Role)
+                .HasForeignKey(x => x.RoleId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
