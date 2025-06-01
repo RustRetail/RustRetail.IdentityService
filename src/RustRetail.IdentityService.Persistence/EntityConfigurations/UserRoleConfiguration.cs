@@ -6,7 +6,7 @@ namespace RustRetail.IdentityService.Persistence.EntityConfigurations
 {
     internal class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
     {
-        const string TableName = "UserRole";
+        const string TableName = "UserRoles";
 
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {

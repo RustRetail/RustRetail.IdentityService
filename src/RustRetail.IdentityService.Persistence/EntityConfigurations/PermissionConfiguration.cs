@@ -6,7 +6,7 @@ namespace RustRetail.IdentityService.Persistence.EntityConfigurations
 {
     internal class PermissionConfiguration : IEntityTypeConfiguration<Permission>
     {
-        const string TableName = "Permission";
+        const string TableName = "Permissions";
 
         public void Configure(EntityTypeBuilder<Permission> builder)
         {

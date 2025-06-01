@@ -24,6 +24,7 @@ namespace RustRetail.IdentityService.Persistence.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<OutboxMessage>().ToTable("OutboxMessages");
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IdentityDbContext).Assembly);
         }
     }
