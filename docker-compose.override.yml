@@ -4,6 +4,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${ASPNETCORE_Kestrel__Certificates__Default__Password}
       - ConnectionStrings__IdentityDatabase=Host=rustretail.identityservice.postgres;Port=5432;Database=rustretail_identityservice;Username=postgres;Password=postgres
     ports:
       - "8080:8080"

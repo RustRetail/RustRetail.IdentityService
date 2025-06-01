@@ -9,6 +9,10 @@ services:
     depends_on:
       rustretail.identityservice.postgres:
        condition: service_healthy
+    volumes:
+     - ./certs:/https:ro
+    env_file:
+     - .env
   rustretail.identityservice.postgres:
     container_name: rustretail.identityservice.postgres
     image: postgres:15
