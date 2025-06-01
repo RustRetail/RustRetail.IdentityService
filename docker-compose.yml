@@ -1,0 +1,29 @@
+name: RustRetail_IdentityService
+services:
+  rustretail.identityservice.api:
+    container_name: rustretail.identityservice.api
+    image: "${DOCKER_REGISTRY-}rustretailidentityserviceapi"
+    build:
+      context: ./src
+      dockerfile: RustRetail.IdentityService.API/Dockerfile
+    depends_on:
+      rustretail.identityservice.postgres:
+       condition: service_healthy
+  rustretail.identityservice.postgres:
+    container_name: rustretail.identityservice.postgres
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rustretail_identityservice
+    ports:
+      - "6543:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+     test: ["CMD", "pg_isready", "-U", "postgres"]
+     interval: 5s
+     timeout: 3s
+     retries: 5
+volumes:
+  postgres_data:
