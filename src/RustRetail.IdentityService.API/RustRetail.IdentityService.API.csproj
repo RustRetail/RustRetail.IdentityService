@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RustRetail.IdentityService.Infrastructure\RustRetail.IdentityService.Infrastructure.csproj" />
     <ProjectReference Include="..\RustRetail.IdentityService.Persistence\RustRetail.IdentityService.Persistence.csproj" />
   </ItemGroup>
 
