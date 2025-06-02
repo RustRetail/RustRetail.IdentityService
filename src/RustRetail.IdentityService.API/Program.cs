@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using RustRetail.IdentityService.Persistence;
-using RustRetail.IdentityService.Persistence.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
