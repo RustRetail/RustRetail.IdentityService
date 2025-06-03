@@ -1,6 +1,6 @@
 ﻿namespace RustRetail.IdentityService.Infrastructure.Authentication.Jwt
 {
-    internal class JwtOptions
+    public class JwtOptions
     {
         public const string SectionName = "Jwt";
 
