@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi()
     .AddPersistence(builder.Configuration)
     .AddInfrastructure(builder.Configuration)
-    .AddAPI(builder.Configuration);
+    .AddApi(builder.Configuration);
 
 var app = builder.Build();
 
@@ -16,7 +16,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+app.ConfigureApplicationPipeline();
 
 app.MapGet("test", () =>
 {

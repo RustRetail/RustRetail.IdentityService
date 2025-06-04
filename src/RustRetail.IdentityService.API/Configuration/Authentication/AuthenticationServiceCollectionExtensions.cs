@@ -3,10 +3,10 @@ using RustRetail.IdentityService.API.Configuration.Authentication.Jwt;
 
 namespace RustRetail.IdentityService.API.Configuration.Authentication
 {
-    public static class AuthenticationServiceCollectionExtensions
+    internal static class AuthenticationServiceCollectionExtensions
     {
-        internal static IServiceCollection AddAuthentication(
-            IServiceCollection services,
+        internal static IServiceCollection AddApiAuthentication(
+            this IServiceCollection services,
             IConfiguration configuration)
         {
             // Jwt
