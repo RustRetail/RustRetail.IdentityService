@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using RustRetail.IdentityService.API.Configuration.Authentication.Cors;
 using RustRetail.IdentityService.API.Configuration.Authentication.Jwt;
 
 namespace RustRetail.IdentityService.API.Configuration.Authentication
@@ -17,6 +18,9 @@ namespace RustRetail.IdentityService.API.Configuration.Authentication
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             });
             services.ConfigureOptions<JwtBearerOptionsSetup>();
+
+            // Cors
+            services.ConfigureCors();
 
             return services;
         }
