@@ -40,4 +40,10 @@ INSERT INTO public."Users"
 ("Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "LockoutEnd", "AccessFailedCount", "CreatedDateTime", "UpdatedDateTime")
 VALUES('dade8f41-94e8-4361-9637-76e0c6427730'::uuid, 'User', 'USER', 'hoant.3010.personal@gmail.com', 'HOANT.3010.PERSONAL@GMAIL.COM', false, '$2a$11$erfRkWHiwIkya9qrnKH67e5J4BvcobCJVs4l1z6y60BMZcBpKaHcy', '0346476019', false, false, true, NULL, 0, '2025-06-01 00:00:00.000', NULL);
 
---
+-- UserRoles
+INSERT INTO public."UserRoles"
+("UserId", "RoleId", "AssignedDateTime")
+VALUES('fd67165e-5f99-4c9d-b756-c017d1bf313c'::uuid, '7087c337-8c4d-4a38-9338-9d841deb5d6a'::uuid, '2025-06-01 00:00:00.000');
+INSERT INTO public."UserRoles"
+("UserId", "RoleId", "AssignedDateTime")
+VALUES('dade8f41-94e8-4361-9637-76e0c6427730'::uuid, '6f924082-0941-4b52-a3ab-31435f76e66a'::uuid, '2025-06-01 00:00:00.000');
