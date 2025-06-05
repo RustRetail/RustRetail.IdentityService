@@ -3,6 +3,8 @@ using RustRetail.IdentityService.API.Middlewares;
 using System.Diagnostics;
 using RustRetail.IdentityService.API.Configuration.Authentication;
 using RustRetail.IdentityService.API.Configuration.Authorization;
+using RustRetail.IdentityService.API.Configuration.ApiVersioning;
+using RustRetail.SharedInfrastructure.MinimalApi;
 
 namespace RustRetail.IdentityService.API.Configuration
 {
@@ -14,7 +16,9 @@ namespace RustRetail.IdentityService.API.Configuration
         {
             services.AddApiAuthentication(configuration)
                 .AddApiAuthorization()
-                .AddGlobalExceptionHandling();
+                .AddGlobalExceptionHandling()
+                .ConfigureApiVersioning()
+                .AddMinimalApi();
 
             return services;
         }
@@ -33,6 +37,13 @@ namespace RustRetail.IdentityService.API.Configuration
                     context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
                 };
             });
+
+            return services;
+        }
+
+        private static IServiceCollection AddMinimalApi(this IServiceCollection services)
+        {
+            services.AddEndpoints(typeof(ServicesConfiguration).Assembly);
 
             return services;
         }

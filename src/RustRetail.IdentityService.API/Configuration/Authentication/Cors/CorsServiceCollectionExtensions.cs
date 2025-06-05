@@ -2,7 +2,7 @@
 {
     internal static class CorsServiceCollectionExtensions
     {
-        const string AllowedAllOriginsPolicy = "AllowAllOrigins";
+        internal const string AllowedAllOriginsPolicy = "AllowAllOrigins";
 
         internal static IServiceCollection ConfigureCors(
             this IServiceCollection services)

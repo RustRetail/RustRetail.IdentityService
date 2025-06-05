@@ -20,9 +20,4 @@ if (app.Environment.IsDevelopment())
 
 app.ConfigureApplicationPipeline();
 
-app.MapGet("test", () =>
-{
-    return "Identity Service is running!";
-});
-
 app.Run();
