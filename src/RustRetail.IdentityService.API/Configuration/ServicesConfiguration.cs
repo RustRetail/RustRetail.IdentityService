@@ -2,6 +2,7 @@
 using RustRetail.IdentityService.API.Middlewares;
 using System.Diagnostics;
 using RustRetail.IdentityService.API.Configuration.Authentication;
+using RustRetail.IdentityService.API.Configuration.Authorization;
 
 namespace RustRetail.IdentityService.API.Configuration
 {
@@ -12,6 +13,7 @@ namespace RustRetail.IdentityService.API.Configuration
             IConfiguration configuration)
         {
             services.AddApiAuthentication(configuration)
+                .AddApiAuthorization()
                 .AddGlobalExceptionHandling();
 
             return services;
