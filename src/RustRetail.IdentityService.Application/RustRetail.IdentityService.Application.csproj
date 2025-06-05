@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
+    <PackageReference Include="RustRetail.SharedApplication" Version="1.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RustRetail.IdentityService.Domain\RustRetail.IdentityService.Domain.csproj" />
   </ItemGroup>
 
