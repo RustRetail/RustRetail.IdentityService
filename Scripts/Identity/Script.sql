@@ -39,6 +39,21 @@ VALUES('fd67165e-5f99-4c9d-b756-c017d1bf313c'::uuid, 'Admin', 'ADMIN', 'hoant.30
 INSERT INTO public."Users"
 ("Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "LockoutEnd", "AccessFailedCount", "CreatedDateTime", "UpdatedDateTime")
 VALUES('dade8f41-94e8-4361-9637-76e0c6427730'::uuid, 'User', 'USER', 'hoant.3010.personal@gmail.com', 'HOANT.3010.PERSONAL@GMAIL.COM', false, '$2a$11$erfRkWHiwIkya9qrnKH67e5J4BvcobCJVs4l1z6y60BMZcBpKaHcy', '0346476019', false, false, true, NULL, 0, '2025-06-01 00:00:00.000', NULL);
+INSERT INTO public."Users"
+("Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "LockoutEnd", "AccessFailedCount", "CreatedDateTime", "UpdatedDateTime")
+VALUES('b3cdfb45-124e-43ab-9e75-cecef2641522'::uuid, 'TestUser1', 'TESTUSER1', 'testuser1@gmail.com', 'TESTUSER1@GMAIL.COM', false, '$2a$11$erfRkWHiwIkya9qrnKH67e5J4BvcobCJVs4l1z6y60BMZcBpKaHcy', '0123456781', false, false, true, NULL, 0, '2025-06-01 00:00:00.000', NULL);
+INSERT INTO public."Users"
+("Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "LockoutEnd", "AccessFailedCount", "CreatedDateTime", "UpdatedDateTime")
+VALUES('e1e7b6cb-1b0d-42b0-a2e7-4918bc39fcc2'::uuid, 'TestUser2', 'TESTUSER2', 'testuser2@gmail.com', 'TESTUSER2@GMAIL.COM', false, '$2a$11$erfRkWHiwIkya9qrnKH67e5J4BvcobCJVs4l1z6y60BMZcBpKaHcy', '0123456782', false, false, true, NULL, 0, '2025-06-01 00:00:00.000', NULL);
+INSERT INTO public."Users"
+("Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "LockoutEnd", "AccessFailedCount", "CreatedDateTime", "UpdatedDateTime")
+VALUES('2c5e47eb-b6e7-42f0-981b-ffff9ad66dc5'::uuid, 'TestUser3', 'TESTUSER3', 'testuser3@gmail.com', 'TESTUSER3@GMAIL.COM', false, '$2a$11$erfRkWHiwIkya9qrnKH67e5J4BvcobCJVs4l1z6y60BMZcBpKaHcy', '0123456783', false, false, true, NULL, 0, '2025-06-01 00:00:00.000', NULL);
+INSERT INTO public."Users"
+("Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "LockoutEnd", "AccessFailedCount", "CreatedDateTime", "UpdatedDateTime")
+VALUES('b7d0cbe5-0b33-4129-ae63-18c84e546913'::uuid, 'TestUser4', 'TESTUSER4', 'testuser4@gmail.com', 'TESTUSER4@GMAIL.COM', false, '$2a$11$erfRkWHiwIkya9qrnKH67e5J4BvcobCJVs4l1z6y60BMZcBpKaHcy', '0123456784', false, false, true, NULL, 0, '2025-06-01 00:00:00.000', NULL);
+INSERT INTO public."Users"
+("Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "LockoutEnd", "AccessFailedCount", "CreatedDateTime", "UpdatedDateTime")
+VALUES('1d234df2-8cc0-4ac4-a83b-bd6e67d809d5'::uuid, 'TestUser5', 'TESTUSER5', 'testuser5@gmail.com', 'TESTUSER5@GMAIL.COM', false, '$2a$11$erfRkWHiwIkya9qrnKH67e5J4BvcobCJVs4l1z6y60BMZcBpKaHcy', '0123456785', false, false, true, NULL, 0, '2025-06-01 00:00:00.000', NULL);
 
 -- UserRoles
 INSERT INTO public."UserRoles"
@@ -47,3 +62,18 @@ VALUES('fd67165e-5f99-4c9d-b756-c017d1bf313c'::uuid, '7087c337-8c4d-4a38-9338-9d
 INSERT INTO public."UserRoles"
 ("UserId", "RoleId", "AssignedDateTime")
 VALUES('dade8f41-94e8-4361-9637-76e0c6427730'::uuid, '6f924082-0941-4b52-a3ab-31435f76e66a'::uuid, '2025-06-01 00:00:00.000');
+INSERT INTO public."UserRoles"
+("UserId", "RoleId", "AssignedDateTime")
+VALUES('b3cdfb45-124e-43ab-9e75-cecef2641522'::uuid, '6f924082-0941-4b52-a3ab-31435f76e66a'::uuid, '2025-06-01 00:00:00.000');
+INSERT INTO public."UserRoles"
+("UserId", "RoleId", "AssignedDateTime")
+VALUES('e1e7b6cb-1b0d-42b0-a2e7-4918bc39fcc2'::uuid, '6f924082-0941-4b52-a3ab-31435f76e66a'::uuid, '2025-06-01 00:00:00.000');
+INSERT INTO public."UserRoles"
+("UserId", "RoleId", "AssignedDateTime")
+VALUES('2c5e47eb-b6e7-42f0-981b-ffff9ad66dc5'::uuid, '6f924082-0941-4b52-a3ab-31435f76e66a'::uuid, '2025-06-01 00:00:00.000');
+INSERT INTO public."UserRoles"
+("UserId", "RoleId", "AssignedDateTime")
+VALUES('b7d0cbe5-0b33-4129-ae63-18c84e546913'::uuid, '6f924082-0941-4b52-a3ab-31435f76e66a'::uuid, '2025-06-01 00:00:00.000');
+INSERT INTO public."UserRoles"
+("UserId", "RoleId", "AssignedDateTime")
+VALUES('1d234df2-8cc0-4ac4-a83b-bd6e67d809d5'::uuid, '6f924082-0941-4b52-a3ab-31435f76e66a'::uuid, '2025-06-01 00:00:00.000');
