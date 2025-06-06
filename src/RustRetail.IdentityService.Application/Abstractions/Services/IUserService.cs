@@ -6,6 +6,10 @@ namespace RustRetail.IdentityService.Application.Abstractions.Services
     {
         Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default);
         Task<User?> GetUserByUserNameAsync(string userName, CancellationToken cancellationToken = default);
-        Task<bool> ValidatePasswordAsync(User user, string password);
+        bool ValidatePasswordAsync(User user, string password);
+        bool IsLockedOutAsync(User user, DateTimeOffset currentDateTime);
+        Task IncreaseFailedLoginAttemptsAsync(User user, CancellationToken cancellationToken = default);
+        Task LockoutUserAsync(User user, DateTimeOffset lockoutEndTimestamp, CancellationToken cancellationToken = default);
+        Task ResetFailedLoginAttemptsAsync(User user, CancellationToken cancellationToken = default);
     }
 }

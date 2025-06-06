@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RustRetail.IdentityService.Domain.Entities;
 using RustRetail.IdentityService.Domain.Repositories;
+using RustRetail.IdentityService.Persistence.Database;
 using RustRetail.SharedPersistence.Database;
 
 namespace RustRetail.IdentityService.Persistence.Repositories
 {
     internal class UserRepository : Repository<User, Guid>, IUserRepository
     {
-        internal UserRepository(DbContext context) : base(context)
+        public UserRepository(IdentityDbContext context) : base(context)
         {
         }
 

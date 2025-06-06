@@ -16,7 +16,6 @@ namespace RustRetail.IdentityService.Infrastructure.Authentication
             services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 
             // Jwt
-            services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
             services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
 
             return services;

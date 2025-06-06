@@ -5,7 +5,9 @@ using RustRetail.IdentityService.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi()
+builder.Services
+    .ConfiguringOptions(builder.Configuration)
+    .AddOpenApi()
     .AddPersistence(builder.Configuration)
     .AddInfrastructure(builder.Configuration)
     .AddApplication()

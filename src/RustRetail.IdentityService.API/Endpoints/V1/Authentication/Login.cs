@@ -1,4 +1,5 @@
-﻿using RustRetail.SharedInfrastructure.MinimalApi;
+﻿using RustRetail.IdentityService.Contracts.Authentication.Login;
+using RustRetail.SharedInfrastructure.MinimalApi;
 
 namespace RustRetail.IdentityService.API.Endpoints.V1.Authentication
 {
@@ -6,7 +7,7 @@ namespace RustRetail.IdentityService.API.Endpoints.V1.Authentication
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost($"{Resource.Authentication}/login", () =>
+            app.MapPost($"{Resource.Authentication}/login", (LoginRequest request) =>
             {
                 return "Access login endpoint";
             })
