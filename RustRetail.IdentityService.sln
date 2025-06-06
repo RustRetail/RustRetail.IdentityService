@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustRetail.IdentityService.
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustRetail.IdentityService.Contracts", "src\RustRetail.IdentityService.Contracts\RustRetail.IdentityService.Contracts.csproj", "{B08CAA46-DA1C-4C8E-89BC-9702CFA6908C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B08CAA46-DA1C-4C8E-89BC-9702CFA6908C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B08CAA46-DA1C-4C8E-89BC-9702CFA6908C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B08CAA46-DA1C-4C8E-89BC-9702CFA6908C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B08CAA46-DA1C-4C8E-89BC-9702CFA6908C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{1C484FBE-1207-4451-8FFB-A82B2E8693E4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{F879FA58-71C0-48C7-9B4F-D86827F915FF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{9DEE0E5B-C768-449D-BB08-AA03D7338FA6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{B08CAA46-DA1C-4C8E-89BC-9702CFA6908C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E14A1626-207B-4B2F-B433-5A0BFA373C36}

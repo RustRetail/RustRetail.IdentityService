@@ -15,6 +15,7 @@ WORKDIR /src
 COPY ["RustRetail.IdentityService.API/RustRetail.IdentityService.API.csproj", "RustRetail.IdentityService.API/"]
 COPY ["RustRetail.IdentityService.Persistence/RustRetail.IdentityService.Persistence.csproj", "RustRetail.IdentityService.Persistence/"]
 COPY ["RustRetail.IdentityService.Domain/RustRetail.IdentityService.Domain.csproj", "RustRetail.IdentityService.Domain/"]
+COPY ["RustRetail.IdentityService.Contracts/RustRetail.IdentityService.Contracts.csproj", "RustRetail.IdentityService.Contracts/"]
 RUN dotnet restore "./RustRetail.IdentityService.API/RustRetail.IdentityService.API.csproj"
 COPY . .
 WORKDIR "/src/RustRetail.IdentityService.API"
