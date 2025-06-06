@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RustRetail.IdentityService.Infrastructure.ApplicationServices;
 using RustRetail.IdentityService.Infrastructure.Authentication;
 
 namespace RustRetail.IdentityService.Infrastructure
@@ -11,6 +12,7 @@ namespace RustRetail.IdentityService.Infrastructure
             IConfiguration configuration)
         {
             services.AddAuthentication(configuration);
+            services.AddApplicationServices();
 
             return services;
         }
