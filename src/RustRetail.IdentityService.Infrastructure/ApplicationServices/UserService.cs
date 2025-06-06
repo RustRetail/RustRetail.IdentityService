@@ -40,7 +40,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
             await unitOfWork.SaveChangeAsync(cancellationToken);
         }
 
-        public bool IsLockedOutAsync(User user, DateTimeOffset currentDateTime)
+        public bool IsUserLockedOut(User user, DateTimeOffset currentDateTime)
         {
             if (!user.LockoutEnabled) return false;
             if (user.LockoutEnd is null) return false;
@@ -64,7 +64,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
             await unitOfWork.SaveChangeAsync(cancellationToken);
         }
 
-        public bool ValidatePasswordAsync(User user, string password)
+        public bool ValidatePassword(User user, string password)
         {
             return passwordHasher.VerifyPassword(password, user.PasswordHash);
         }
