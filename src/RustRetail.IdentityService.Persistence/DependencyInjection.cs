@@ -49,7 +49,9 @@ namespace RustRetail.IdentityService.Persistence
         {
             // Generic repository
             services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+
             // Custom repository
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }
