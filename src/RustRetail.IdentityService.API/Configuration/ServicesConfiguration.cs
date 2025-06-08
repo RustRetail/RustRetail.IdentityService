@@ -5,6 +5,7 @@ using RustRetail.IdentityService.API.Configuration.Authentication;
 using RustRetail.IdentityService.API.Configuration.Authorization;
 using RustRetail.IdentityService.API.Configuration.ApiVersioning;
 using RustRetail.SharedInfrastructure.MinimalApi;
+using RustRetail.IdentityService.API.Configuration.Json;
 
 namespace RustRetail.IdentityService.API.Configuration
 {
@@ -18,7 +19,8 @@ namespace RustRetail.IdentityService.API.Configuration
                 .AddApiAuthorization()
                 .AddGlobalExceptionHandling()
                 .ConfigureApiVersioning()
-                .AddMinimalApi();
+                .AddMinimalApi()
+                .AddJsonConfiguration();
 
             return services;
         }
