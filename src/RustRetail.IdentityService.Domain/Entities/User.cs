@@ -1,4 +1,5 @@
-﻿using RustRetail.SharedKernel.Domain.Models;
+﻿using RustRetail.IdentityService.Domain.Events.User;
+using RustRetail.SharedKernel.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace RustRetail.IdentityService.Domain.Entities
@@ -34,5 +35,32 @@ namespace RustRetail.IdentityService.Domain.Entities
         public ICollection<UserToken> Tokens { get; set; } = [];
         public ICollection<UserLogin> Logins { get; set; } = [];
         public ICollection<UserRole> Roles { get; set; } = [];
+
+        public void IncreaseAccessFailedCount()
+        {
+            AccessFailedCount++;
+        }
+
+        public void ResetAccessFailedCount()
+        {
+            if (LockoutEnabled && AccessFailedCount > 0)
+            {
+                AccessFailedCount = 0;
+                LockoutEnd = null;
+            }
+        }
+
+        public void SetLockoutEnd(DateTimeOffset lockoutEnd)
+        {
+            LockoutEnd = lockoutEnd;
+            AddDomainEvent(new UserLockedOutDomainEvent(Id));
+        }
+
+        public bool IsUserLockedOut(DateTimeOffset currentDateTime)
+        {
+            if (!LockoutEnabled) return false;
+            if (LockoutEnd is null) return false;
+            return LockoutEnd > currentDateTime;
+        }
     }
 }

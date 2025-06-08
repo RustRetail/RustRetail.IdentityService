@@ -39,7 +39,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
 
             // To do: Save the refresh token to the user 
             // To do: Raise user logged in success domain event
-
+            
             return Result.Success(
                 new LoginResponse(
                     accessToken,
