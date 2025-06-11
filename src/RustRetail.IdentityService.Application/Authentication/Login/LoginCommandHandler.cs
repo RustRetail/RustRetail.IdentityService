@@ -20,6 +20,7 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
     {
         readonly IUserRepository userRepository = unitOfWork.GetRepository<IUserRepository>();
         readonly AuthenticationSettingOptions authenticationSettings = options.Value;
+        readonly IRoleRepository roleRepository = unitOfWork.GetRepository<IRoleRepository>();
 
         public async Task<Result<LoginResponse>> Handle(
             LoginCommand request,
@@ -60,8 +61,11 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
                 return Result.Failure<LoginResponse>(LoginErrors.InvalidCredentials);
             }
 
+            // Get user roles
+            var roles = await roleRepository.GetRolesByUserIdAsync(user.Id);
+
             // Generate tokens
-            string accessToken = tokenProvider.GenerateAccessToken(user, new List<string>());
+            string accessToken = tokenProvider.GenerateAccessToken(user, roles.Select(r => r.NormalizedName).ToList());
             string refreshToken = tokenProvider.GenerateRefreshToken();
 
             // Reset access failed count
