@@ -3,6 +3,7 @@ using RustRetail.IdentityService.Domain.Entities;
 using RustRetail.IdentityService.Domain.Repositories;
 using RustRetail.IdentityService.Persistence.Database;
 using RustRetail.SharedPersistence.Database;
+using System.Linq.Expressions;
 
 namespace RustRetail.IdentityService.Persistence.Repositories
 {
@@ -14,8 +15,35 @@ namespace RustRetail.IdentityService.Persistence.Repositories
 
         public async Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default)
         {
-            return await _dbSet.FirstOrDefaultAsync(
-                u => u.NormalizedEmail == email.Trim().ToUpperInvariant(),
+            string formattedEmail = email.Trim().ToUpperInvariant();
+            return await _dbSet
+                .FirstOrDefaultAsync(
+                u => u.NormalizedEmail == formattedEmail,
+                cancellationToken);
+        }
+
+        public Task<User?> GetUserByEmailAsync(
+            string email,
+            bool asTracking = true,
+            bool asSplitQuery = false,
+            CancellationToken cancellationToken = default,
+            params Expression<Func<User, object>>[] includes)
+        {
+            string formattedEmail = email.Trim().ToUpperInvariant();
+
+            var query = _dbSet.AsQueryable();
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            query = asTracking ? query.AsTracking() : query.AsNoTracking();
+
+            query = asSplitQuery ? query.AsSplitQuery() : query;
+
+            return query.FirstOrDefaultAsync(
+                u => u.NormalizedEmail == formattedEmail,
                 cancellationToken);
         }
 

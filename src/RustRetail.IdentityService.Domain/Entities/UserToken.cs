@@ -24,24 +24,5 @@ namespace RustRetail.IdentityService.Domain.Entities
         public UserToken()
         {
         }
-
-        public static UserToken CreateNewUserToken(
-            string provider,
-            string name,
-            string value,
-            Guid userId,
-            DateTimeOffset? expiryDateTime = null)
-        {
-            return new UserToken()
-            {
-                Id = Guid.NewGuid(),
-                Provider = provider,
-                Name = name,
-                Value = value,
-                UserId = userId,
-                CreatedDateTime = DateTimeOffset.UtcNow,
-                ExpiryDateTime = expiryDateTime
-            };
-        }
     }
 }

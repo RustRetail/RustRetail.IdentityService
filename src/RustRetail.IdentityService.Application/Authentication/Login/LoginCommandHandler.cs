@@ -26,7 +26,13 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
             CancellationToken cancellationToken)
         {
             // Get the user by email
-            var user = await userRepository.GetUserByEmailAsync(request.Email, cancellationToken);
+            var user = await userRepository.GetUserByEmailAsync(
+                request.Email,
+                true,
+                true,
+                cancellationToken,
+                u => u.Tokens);
+
             if (user is null)
             {
                 return Result.Failure<LoginResponse>(LoginErrors.InvalidCredentials);
@@ -58,13 +64,33 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
             string accessToken = tokenProvider.GenerateAccessToken(user, new List<string>());
             string refreshToken = tokenProvider.GenerateRefreshToken();
 
-            // Reset access failed count and add refresh token
+            // Reset access failed count
             user.ResetAccessFailedCount();
-            //user.Tokens.Add(UserToken.CreateNewUserToken(
-            //    UserTokenConstants.RustRetailIdentityServiceProvider,
-            //    UserTokenConstants.RefreshTokenName,
-            //    refreshToken,
-            //    user.Id));
+
+            // Add or update user's refresh token
+            var existingToken = user.Tokens.FirstOrDefault(t =>
+                t.Name == UserTokenConstants.RefreshTokenName &&
+                t.Provider == UserTokenConstants.RustRetailIdentityServiceProvider);
+
+            if (existingToken == null)
+            {
+                existingToken = new UserToken()
+                {
+                    Provider = UserTokenConstants.RustRetailIdentityServiceProvider,
+                    Name = UserTokenConstants.RefreshTokenName,
+                    Value = refreshToken,
+                    CreatedDateTime = DateTimeOffset.UtcNow,
+                    ExpiryDateTime = null
+                };
+                user.Tokens.Add(existingToken);
+            }
+            else
+            {
+                existingToken.Value = refreshToken;
+                existingToken.CreatedDateTime = DateTimeOffset.UtcNow;
+            }
+
+            // Update user
             userRepository.Update(user);
             await unitOfWork.SaveChangeAsync(cancellationToken);
 
