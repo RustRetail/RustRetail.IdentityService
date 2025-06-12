@@ -31,7 +31,8 @@ namespace RustRetail.IdentityService.API.Endpoints.V1.Authentication
                     Expires = DateTimeOffset.UtcNow.AddDays(7)
                 });
 
-                return Results.Ok(new SuccessResultWrapper<LoginResponse>(result, httpContext));
+                var resultWrapper = new SuccessResultWrapper<object>(result, httpContext, new { result.Value.AccessToken });
+                return Results.Ok(resultWrapper);
             })
             .WithTags(Tags.Authentication)
             .AllowAnonymous()

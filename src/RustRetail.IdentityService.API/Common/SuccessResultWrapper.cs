@@ -32,5 +32,11 @@ namespace RustRetail.IdentityService.API.Common
         {
             Data = result.Value;
         }
+
+        public SuccessResultWrapper(Result result, HttpContext httpContext, T data)
+            : base(result, httpContext)
+        {
+            Data = data;
+        }
     }
 }
