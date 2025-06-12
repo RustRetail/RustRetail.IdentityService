@@ -16,10 +16,22 @@ namespace RustRetail.IdentityService.API.Endpoints.V1.Authentication
             {
                 var loginCommand = new LoginCommand(request!.Email, request.Password);
                 var result = await sender.Send(loginCommand);
+                if (!result.IsSuccess)
+                {
+                    return ResultExtension.HandleFailure(result, httpContext);
+                }
 
-                return result.IsSuccess
-                    ? Results.Ok(new SuccessResultWrapper<LoginResponse>(result, httpContext))
-                    : ResultExtension.HandleFailure(result, httpContext);
+                // Set refresh token as an HTTP-only, secure cookie
+                httpContext.Response.Cookies.Append("refreshToken", result.Value.RefreshToken, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.None,
+                    // Hard coded, to be modified later
+                    Expires = DateTimeOffset.UtcNow.AddDays(7)
+                });
+
+                return Results.Ok(new SuccessResultWrapper<LoginResponse>(result, httpContext));
             })
             .WithTags(Tags.Authentication)
             .AllowAnonymous()
