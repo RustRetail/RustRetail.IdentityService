@@ -6,6 +6,7 @@ using RustRetail.IdentityService.API.Configuration.Authorization;
 using RustRetail.IdentityService.API.Configuration.ApiVersioning;
 using RustRetail.SharedInfrastructure.MinimalApi;
 using RustRetail.IdentityService.API.Configuration.Json;
+using FluentValidation;
 
 namespace RustRetail.IdentityService.API.Configuration
 {
@@ -20,7 +21,8 @@ namespace RustRetail.IdentityService.API.Configuration
                 .AddGlobalExceptionHandling()
                 .ConfigureApiVersioning()
                 .AddMinimalApi()
-                .AddJsonConfiguration();
+                .AddJsonConfiguration()
+                .AddValidatorsFromAssembly(typeof(ServicesConfiguration).Assembly);
 
             return services;
         }

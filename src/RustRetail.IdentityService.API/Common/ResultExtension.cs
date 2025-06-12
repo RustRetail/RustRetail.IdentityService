@@ -12,37 +12,37 @@ namespace RustRetail.IdentityService.API.Common
             result switch
             {
                 { IsSuccess: true } => throw new InvalidOperationException("Cannot handle failure for successful result!"),
-                IValidationResult validationResult => Results.BadRequest(
-                    CreateProblemDetails(
-                        "Validation Error(s)",
-                        StatusCodes.Status400BadRequest,
-                        result.Errors[0],
-                        httpContext,
-                        result.Errors)),
+                //IValidationResult validationResult => Results.BadRequest(
+                //    CreateProblemDetails(
+                //        "Validation Error(s)",
+                //        StatusCodes.Status400BadRequest,
+                //        result.Errors[0],
+                //        httpContext,
+                //        result.Errors)),
                 _ => result.ToProblemDetails(httpContext)
             };
 
-        static ProblemDetails CreateProblemDetails(
-            string title,
-            int status,
-            Error error,
-            HttpContext httpContext,
-            Error[]? errors = null)
-        {
-            var problemDetail = new ProblemDetails
-            {
-                Title = title,
-                Type = error.Code,
-                Detail = error.Description,
-                Status = status,
-                Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}",
-                Extensions = { { nameof(errors), errors } }
-            };
-            problemDetail.Extensions.TryAdd("requestId", httpContext.TraceIdentifier);
-            Activity? activity = httpContext.Features.Get<IHttpActivityFeature>()?.Activity;
-            problemDetail.Extensions.TryAdd("traceId", activity?.Id);
-            return problemDetail;
-        }
+        //static ProblemDetails CreateProblemDetails(
+        //    string title,
+        //    int status,
+        //    Error error,
+        //    HttpContext httpContext,
+        //    Error[]? errors = null)
+        //{
+        //    var problemDetail = new ProblemDetails
+        //    {
+        //        Title = title,
+        //        Type = error.Code,
+        //        Detail = error.Description,
+        //        Status = status,
+        //        Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}",
+        //        Extensions = { { nameof(errors), errors } }
+        //    };
+        //    problemDetail.Extensions.TryAdd("requestId", httpContext.TraceIdentifier);
+        //    Activity? activity = httpContext.Features.Get<IHttpActivityFeature>()?.Activity;
+        //    problemDetail.Extensions.TryAdd("traceId", activity?.Id);
+        //    return problemDetail;
+        //}
 
         static IResult ToProblemDetails(this Result result, HttpContext httpContext)
         {
