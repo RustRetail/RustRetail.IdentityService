@@ -18,7 +18,7 @@ namespace RustRetail.IdentityService.API.Endpoints.V1.Authentication
                 var result = await sender.Send(loginCommand);
 
                 return result.IsSuccess
-                    ? Results.Ok(result.Value)
+                    ? Results.Ok(new SuccessResultWrapper<LoginResponse>(result, httpContext))
                     : ResultExtension.HandleFailure(result, httpContext);
             })
             .WithTags(Tags.Authentication)
