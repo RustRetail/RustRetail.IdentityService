@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RustRetail.IdentityService.Domain.Constants;
 using RustRetail.IdentityService.Domain.Entities;
 using RustRetail.IdentityService.Domain.Repositories;
 using RustRetail.IdentityService.Persistence.Database;
@@ -44,6 +45,16 @@ namespace RustRetail.IdentityService.Persistence.Repositories
 
             return query.FirstOrDefaultAsync(
                 u => u.NormalizedEmail == formattedEmail,
+                cancellationToken);
+        }
+
+        public async Task<User?> GetUserByRefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default)
+        {
+            return await _dbSet
+                .AsTracking()
+                .Include(u => u.Tokens)
+                .FirstOrDefaultAsync(
+                u => u.Tokens.Any(t => t.Name == UserTokenConstants.RefreshTokenName && t.Provider == UserTokenConstants.RustRetailIdentityServiceProvider && t.Value == refreshToken),
                 cancellationToken);
         }
 

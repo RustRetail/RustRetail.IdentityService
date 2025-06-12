@@ -8,6 +8,7 @@ namespace RustRetail.IdentityService.Domain.Repositories
     {
         Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default);
         Task<User?> GetUserByUserNameAsync(string userName, CancellationToken cancellationToken = default);
+        Task<User?> GetUserByRefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default);
         Task<User?> GetUserByEmailAsync(string email, bool asTracking = true, bool asSplitQuery = false, CancellationToken cancellationToken = default, params Expression<Func<User, object>>[] includes);
     }
 }
