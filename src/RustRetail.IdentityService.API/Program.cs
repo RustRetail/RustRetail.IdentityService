@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .ConfiguringOptions(builder.Configuration)
-    .AddOpenApi()
+    .AddSharedServices(builder.Configuration)
     .AddPersistence(builder.Configuration)
     .AddInfrastructure(builder.Configuration)
     .AddApplication()

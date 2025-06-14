@@ -27,6 +27,16 @@ namespace RustRetail.IdentityService.API.Configuration
             return services;
         }
 
+        internal static IServiceCollection AddSharedServices(
+            this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services.AddHttpContextAccessor()
+                .AddOpenApi();
+
+            return services;
+        }
+
         private static IServiceCollection AddGlobalExceptionHandling(
             this IServiceCollection services)
         {

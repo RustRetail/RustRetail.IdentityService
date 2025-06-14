@@ -16,7 +16,8 @@ namespace RustRetail.IdentityService.API.Configuration.Authentication
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            });
+            }).AddJwtBearer();
+
             services.ConfigureOptions<JwtBearerOptionsSetup>();
 
             // Cors

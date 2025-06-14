@@ -6,5 +6,6 @@ namespace RustRetail.IdentityService.Application.Abstractions.Authentication
     {
         string GenerateAccessToken(User user, IList<string> roles);
         string GenerateRefreshToken();
+        DateTime? GetExpiryFromToken(string token);
     }
 }
