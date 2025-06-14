@@ -10,6 +10,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
             return services;
         }
     }
