@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Mvc;
 using RustRetail.SharedKernel.Domain.Abstractions;
 using RustRetail.SharedKernel.Domain.Enums;
 using System.Diagnostics;
