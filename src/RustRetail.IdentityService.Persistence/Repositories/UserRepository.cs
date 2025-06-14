@@ -52,6 +52,7 @@ namespace RustRetail.IdentityService.Persistence.Repositories
         {
             return await _dbSet
                 .AsTracking()
+                .AsSplitQuery()
                 .Include(u => u.Tokens)
                 .FirstOrDefaultAsync(
                 u => u.Tokens.Any(t => t.Name == UserTokenConstants.RefreshTokenName && t.Provider == UserTokenConstants.RustRetailIdentityServiceProvider && t.Value == refreshToken),

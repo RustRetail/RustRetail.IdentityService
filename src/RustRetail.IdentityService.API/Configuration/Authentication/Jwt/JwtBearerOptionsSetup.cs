@@ -12,6 +12,8 @@ namespace RustRetail.IdentityService.API.Configuration.Authentication.Jwt
 
         public void Configure(string? name, JwtBearerOptions options)
         {
+            // Disable the default claim mapping to prevent issues
+            options.MapInboundClaims = false;
             options.TokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateIssuer = true,
@@ -21,12 +23,14 @@ namespace RustRetail.IdentityService.API.Configuration.Authentication.Jwt
                 ValidIssuer = _jwtOptions.Issuer,
                 ValidAudience = _jwtOptions.Audience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
-                ClockSkew = TimeSpan.Zero
+                ClockSkew = TimeSpan.Zero,
             };
         }
 
         public void Configure(JwtBearerOptions options)
         {
+            // Disable the default claim mapping to prevent issues
+            options.MapInboundClaims = false;
             options.TokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateIssuer = true,
@@ -36,7 +40,7 @@ namespace RustRetail.IdentityService.API.Configuration.Authentication.Jwt
                 ValidIssuer = _jwtOptions.Issuer,
                 ValidAudience = _jwtOptions.Audience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
-                ClockSkew = TimeSpan.Zero
+                ClockSkew = TimeSpan.Zero,
             };
         }
     }
