@@ -12,7 +12,7 @@ namespace RustRetail.IdentityService.Persistence.Repositories
         {
         }
 
-        public async Task<Role?> GetRoleByName(
+        public async Task<Role?> GetRoleByNameAsync(
             string name,
             bool asTracking = false,
             CancellationToken cancellationToken = default)
