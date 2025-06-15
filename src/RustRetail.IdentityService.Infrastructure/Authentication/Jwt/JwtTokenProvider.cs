@@ -13,6 +13,9 @@ namespace RustRetail.IdentityService.Infrastructure.Authentication.Jwt
     {
         readonly JwtOptions _jwtOptions = options.Value ?? throw new ArgumentNullException(nameof(options), "JWT options cannot be null.");
 
+        public DateTimeOffset AccessTokenExpiry()
+            => DateTimeOffset.UtcNow.AddMilliseconds(_jwtOptions.AccessTokenExpiryInMilliseconds);
+
         public string GenerateAccessToken(User user, IList<string> roles)
         {
             ArgumentNullException.ThrowIfNull(user);
@@ -77,5 +80,8 @@ namespace RustRetail.IdentityService.Infrastructure.Authentication.Jwt
             // Datetime in UTC
             return jwtToken.ValidTo;
         }
+
+        public DateTimeOffset RefreshTokenExpiry()
+            => DateTimeOffset.UtcNow.AddMilliseconds(_jwtOptions.RefreshTokenExpiryInMilliseconds);
     }
 }
