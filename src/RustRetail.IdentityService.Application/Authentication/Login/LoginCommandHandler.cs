@@ -84,7 +84,7 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
                     Name = UserTokenConstants.RefreshTokenName,
                     Value = refreshToken,
                     CreatedDateTime = DateTimeOffset.UtcNow,
-                    ExpiryDateTime = null
+                    ExpiryDateTime = DateTimeOffset.UtcNow.AddDays(7),
                 };
                 user.Tokens.Add(existingToken);
             }

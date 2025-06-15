@@ -21,17 +21,17 @@ namespace RustRetail.IdentityService.Application.Authentication.RevokeRefreshTok
         {
             if (string.IsNullOrWhiteSpace(request.refreshToken))
             {
-                return Result.Failure(RevokeRefreshTokenErrors.MissingRefreshToken);
+                return Result.Failure(RefreshTokenErrors.MissingRefreshToken);
             }
 
             var expiryDate = tokenProvider.GetExpiryFromToken(request.refreshToken);
             if (expiryDate == null)
             {
-                return Result.Failure(RevokeRefreshTokenErrors.InvalidRefreshToken);
+                return Result.Failure(RefreshTokenErrors.InvalidRefreshToken);
             }
             if (expiryDate <= DateTime.UtcNow)
             {
-                return Result.Failure(RevokeRefreshTokenErrors.RefreshTokenExpired);
+                return Result.Failure(RefreshTokenErrors.RefreshTokenExpired);
             }
 
             var user = await userRepository.GetUserByRefreshTokenAsync(
@@ -40,18 +40,18 @@ namespace RustRetail.IdentityService.Application.Authentication.RevokeRefreshTok
 
             if (user is null)
             {
-                return Result.Failure(RevokeRefreshTokenErrors.InvalidRefreshToken);
+                return Result.Failure(RefreshTokenErrors.InvalidRefreshToken);
             }
 
             if (currentUserService.UserId != user.Id.ToString())    
             {
-                return Result.Failure(RevokeRefreshTokenErrors.RefreshTokenDoesNotBelongToUser);
+                return Result.Failure(RefreshTokenErrors.RefreshTokenDoesNotBelongToUser);
             }
 
             var refreshToken = user.Tokens.FirstOrDefault(t => t.Value == request.refreshToken);
             if (refreshToken is null)
             {
-                return Result.Failure(RevokeRefreshTokenErrors.TokenNotFound);
+                return Result.Failure(RefreshTokenErrors.TokenNotFound);
             }
             user.Tokens.Remove(refreshToken);
             await unitOfWork.SaveChangeAsync(cancellationToken);

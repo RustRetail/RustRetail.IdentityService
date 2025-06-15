@@ -2,7 +2,7 @@
 
 namespace RustRetail.IdentityService.Domain.Errors.Authentication
 {
-    public static class RevokeRefreshTokenErrors
+    public static class RefreshTokenErrors
     {
         public static readonly Error RefreshTokenExpired = Error.Unauthorized("Authentication.RefreshToken.Expired", "The refresh token has expired and cannot be revoked.");
         public static readonly Error MissingRefreshToken = Error.Unauthorized("Authentication.RefreshToken.Missing", "Refresh token is required.");
