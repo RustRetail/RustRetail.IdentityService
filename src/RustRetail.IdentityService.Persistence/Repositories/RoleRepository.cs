@@ -12,6 +12,22 @@ namespace RustRetail.IdentityService.Persistence.Repositories
         {
         }
 
+        public async Task<Role?> GetRoleByName(
+            string name,
+            bool asTracking = false,
+            CancellationToken cancellationToken = default)
+        {
+            QueryTrackingBehavior trackingBehavior = asTracking
+                ? QueryTrackingBehavior.TrackAll
+                : QueryTrackingBehavior.NoTracking;
+
+            return await _dbSet
+                .AsTracking(trackingBehavior)
+                .FirstOrDefaultAsync(
+                    r => r.NormalizedName == name.Trim().ToUpperInvariant(),
+                    cancellationToken);
+        }
+
         public async Task<IReadOnlyList<Role>> GetRolesByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
         {
             return await _context.Set<UserRole>()
