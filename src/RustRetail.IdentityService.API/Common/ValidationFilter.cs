@@ -10,8 +10,8 @@ namespace RustRetail.IdentityService.API.Common
             EndpointFilterInvocationContext context,
             EndpointFilterDelegate next)
         {
-            var validator = context.HttpContext.RequestServices.GetService<IValidator<TRequest>>();
-            if (validator is null)
+            var validators = context.HttpContext.RequestServices.GetServices<IValidator<TRequest>>();
+            if (validators is null || validators.Count() <= 0)
                 return await next(context);
 
             var request = context.Arguments.OfType<TRequest>().FirstOrDefault();
@@ -20,15 +20,18 @@ namespace RustRetail.IdentityService.API.Common
                     Result.Failure(ValidationErrors.RequestBodyMissing),
                     context.HttpContext);
 
-            var validationResult = await validator.ValidateAsync(request);
-            var validationErrors = validationResult.Errors.Where(validationFailure => validationFailure is not null)
+            var validationResults = await Task.WhenAll(
+                validators.Select(validator => validator.ValidateAsync(request)));
+            var validationErrors = validationResults
+                .SelectMany(vr => vr.Errors)
+                .Where(validationFailure => validationFailure is not null)
                 .Select(failure => new { Field = failure.PropertyName, Description = failure.ErrorMessage })
                 .Distinct()
                 .ToArray();
             var error = Error.Validation(ValidationErrors.InvalidRequest.Code,
                 ValidationErrors.InvalidRequest.Description,
                 validationErrors);
-            if (!validationResult.IsValid && validationErrors.Any())
+            if (validationResults.Any(vr => !vr.IsValid) && validationErrors.Any())
             {
                 return ResultExtension.HandleFailure(
                     Result.Failure(error),
