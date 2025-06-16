@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RustRetail.IdentityService.API.Common;
 using RustRetail.IdentityService.Application.Authentication.Login;
@@ -28,7 +27,7 @@ namespace RustRetail.IdentityService.API.Endpoints.V1.Authentication
             CancellationToken cancellationToken)
         {
             var loginCommand = new LoginCommand(request!.Email, request.Password);
-            var result = await sender.Send(loginCommand);
+            var result = await sender.Send(loginCommand, cancellationToken);
             if (!result.IsSuccess)
             {
                 return ResultExtension.HandleFailure(result, httpContext);
@@ -46,24 +45,6 @@ namespace RustRetail.IdentityService.API.Endpoints.V1.Authentication
 
             var resultWrapper = new SuccessResultWrapper<object>(result, httpContext, new { result.Value.AccessToken });
             return Results.Ok(resultWrapper);
-        }
-    }
-
-    public class LoginRequestValidator : AbstractValidator<LoginRequest>
-    {
-        public LoginRequestValidator()
-        {
-            RuleFor(x => x.Email)
-                .NotNull()
-                .NotEmpty()
-                .EmailAddress()
-                .WithMessage("Email is required and must be a valid email address.");
-
-            RuleFor(x => x.Password)
-                .NotNull()
-                .NotEmpty()
-                .MinimumLength(6)
-                .WithMessage("Password is required and must be at least 6 characters long.");
         }
     }
 }

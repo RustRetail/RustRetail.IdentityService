@@ -9,25 +9,32 @@ namespace RustRetail.IdentityService.API.Endpoints.V1.Authentication
 {
     public class RevokeRefreshToken : IEndpoint
     {
+        const string Route = $"{Resource.Authentication}/revoke-token";
+
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost($"{Resource.Authentication}/revoke-token", async (HttpContext httpContext, ISender sender) =>
+            app.MapPost(Route, Handle)
+                .WithTags(Tags.Authentication)
+                .RequireAuthorization()
+                .MapToApiVersion(1);
+        }
+
+        static async Task<IResult> Handle(
+            HttpContext httpContext,
+            ISender sender,
+            CancellationToken cancellationToken)
+        {
+            if (!httpContext.Request.Cookies.TryGetValue("refreshToken", out var refreshToken))
             {
-                if(!httpContext.Request.Cookies.TryGetValue("refreshToken", out var refreshToken))
-                {
-                    return ResultExtension.HandleFailure(Result.Failure(AuthenticationErrors.RefreshTokenCookieNotFound), httpContext);
-                }
+                return ResultExtension.HandleFailure(Result.Failure(AuthenticationErrors.RefreshTokenCookieNotFound), httpContext);
+            }
 
-                var command = new RevokeRefreshTokenCommand(refreshToken);
-                var result = await sender.Send(command);
+            var command = new RevokeRefreshTokenCommand(refreshToken);
+            var result = await sender.Send(command, cancellationToken);
 
-                return result.IsSuccess
-                    ? Results.Ok(new SuccessResultWrapper(result, httpContext))
-                    : ResultExtension.HandleFailure(result, httpContext);
-            })
-            .WithTags(Tags.Authentication)
-            .RequireAuthorization()
-            .MapToApiVersion(1);
+            return result.IsSuccess
+                ? Results.Ok(new SuccessResultWrapper(result, httpContext))
+                : ResultExtension.HandleFailure(result, httpContext);
         }
     }
 }
