@@ -6,6 +6,7 @@ using RustRetail.IdentityService.Persistence.Database;
 using RustRetail.IdentityService.Persistence.Repositories;
 using RustRetail.SharedKernel.Domain.Abstractions;
 using RustRetail.SharedPersistence.Database;
+using RustRetail.SharedPersistence.Interceptors;
 
 namespace RustRetail.IdentityService.Persistence
 {
@@ -17,9 +18,11 @@ namespace RustRetail.IdentityService.Persistence
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddDbContext(configuration)
-                    .AddUnitOfWork()
-                    .AddRepositories();
+            services
+                .AddInterceptors()
+                .AddDbContext(configuration)
+                .AddUnitOfWork()
+                .AddRepositories();
 
             return services;
         }
@@ -28,9 +31,11 @@ namespace RustRetail.IdentityService.Persistence
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddDbContext<IdentityDbContext>(options =>
+            services.AddDbContext<IdentityDbContext>((serviceProvider, options) =>
             {
+                var interceptor = serviceProvider.GetRequiredService<DomainEventHandlingInterceptor>();
                 options.UseNpgsql(configuration.GetConnectionString(ConnectionStringName));
+                options.AddInterceptors(interceptor);
             });
 
             return services;
@@ -53,6 +58,14 @@ namespace RustRetail.IdentityService.Persistence
             // Custom repository
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddInterceptors(
+            this IServiceCollection services)
+        {
+            services.AddScoped<DomainEventHandlingInterceptor>();
 
             return services;
         }

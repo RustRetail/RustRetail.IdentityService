@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using RustRetail.SharedApplication.Behaviors.Logging;
 using RustRetail.SharedApplication.Behaviors.Validation;
 using FluentValidation;
+using RustRetail.SharedKernel.Domain.Events.Domain;
+using RustRetail.SharedApplication.Behaviors.Event;
 
 namespace RustRetail.IdentityService.Application
 {
@@ -13,7 +15,8 @@ namespace RustRetail.IdentityService.Application
         {
             services.ConfigureMediatR()
                 .AddRequestLoggingBehavior()
-                .AddRequestValidationBehavior();
+                .AddRequestValidationBehavior()
+                .AddDomainEventDispatcher();
 
             return services;
         }
@@ -50,6 +53,13 @@ namespace RustRetail.IdentityService.Application
             // Validators
             services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
+            return services;
+        }
+
+        private static IServiceCollection AddDomainEventDispatcher(
+            this IServiceCollection services)
+        {
+            services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
             return services;
         }
     }
