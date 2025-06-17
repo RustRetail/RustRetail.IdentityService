@@ -62,5 +62,24 @@ namespace RustRetail.IdentityService.Domain.Entities
             if (LockoutEnd is null) return false;
             return LockoutEnd > currentDateTime;
         }
+
+        public static User RegisterUser(
+            string email,
+            string username,
+            string passwordHash)
+        {
+            var user = new User()
+            {
+                Id = Guid.NewGuid(),
+                UserName = username,
+                NormalizedUserName = username.ToUpperInvariant(),
+                Email = email,
+                NormalizedEmail = email.ToUpperInvariant(),
+                EmailConfirmed = false,
+                PasswordHash = passwordHash,
+            };
+            user.AddDomainEvent(new UserRegisteredEvent(user.Id, user.UserName, user.Email));
+            return user;
+        }
     }
 }

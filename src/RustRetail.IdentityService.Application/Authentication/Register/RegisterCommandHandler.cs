@@ -34,15 +34,10 @@ namespace RustRetail.IdentityService.Application.Authentication.Register
                 return Result.Failure(RegisterErrors.UserNameExisted);
             }
 
-            var user = new User()
-            {
-                UserName = request.UserName.Trim(),
-                NormalizedUserName = request.UserName.Trim().ToUpperInvariant(),
-                Email = request.Email.Trim(),
-                NormalizedEmail = request.Email.Trim().ToUpperInvariant(),
-                EmailConfirmed = false,
-                PasswordHash = passwordHasher.HashPassword(request.Password),
-            };
+            var user = User.RegisterUser(
+                request.Email.Trim(),
+                request.UserName.Trim(),
+                passwordHasher.HashPassword(request.Password.Trim()));
             user.Roles.Add(new UserRole()
             {
                 RoleId = (await roleRepository.GetRoleByNameAsync(
