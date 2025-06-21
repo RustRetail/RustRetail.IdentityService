@@ -78,7 +78,7 @@ namespace RustRetail.IdentityService.Domain.Entities
                 EmailConfirmed = false,
                 PasswordHash = passwordHash,
             };
-            user.AddDomainEvent(new UserRegisteredEvent(user.Id, user.UserName, user.Email));
+            user.AddDomainEvent(new UserRegisteredDomainEvent(user.Id, user.UserName, user.Email));
             return user;
         }
     }

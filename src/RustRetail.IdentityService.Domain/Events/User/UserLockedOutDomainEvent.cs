@@ -4,7 +4,7 @@ namespace RustRetail.IdentityService.Domain.Events.User
 {
     public sealed class UserLockedOutDomainEvent : DomainEvent
     {
-        Guid UserId { get; }
+        public Guid UserId { get; init; }
 
         public UserLockedOutDomainEvent(Guid userId)
         {
