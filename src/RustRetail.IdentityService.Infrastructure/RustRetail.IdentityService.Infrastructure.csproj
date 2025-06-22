@@ -14,11 +14,14 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.5" />
+    <PackageReference Include="Quartz" Version="3.14.0" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.14.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.11.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RustRetail.IdentityService.Application\RustRetail.IdentityService.Application.csproj" />
+    <ProjectReference Include="..\RustRetail.IdentityService.Persistence\RustRetail.IdentityService.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

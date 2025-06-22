@@ -1,9 +1,9 @@
 ﻿using MassTransit;
-using RustRetail.IdentityService.Application.Abstractions.MessageBrokers;
+using RustRetail.SharedApplication.Behaviors.Messaging;
 
 namespace RustRetail.IdentityService.Infrastructure.MessageBrokers.RabbitMQ
 {
-    internal class MassTransitMessageSender : IMessageSender
+    internal class MassTransitMessageSender : IMessageBus
     {
         readonly IPublishEndpoint _publishEndpoint;
 
@@ -14,7 +14,15 @@ namespace RustRetail.IdentityService.Infrastructure.MessageBrokers.RabbitMQ
 
         public async Task PublishAsync<T>(T message, CancellationToken cancellationToken = default) where T : class
         {
+            ArgumentNullException.ThrowIfNull(message);
             await _publishEndpoint.Publish(message, cancellationToken);
+        }
+
+        public async Task PublishAsync(object message, Type type, CancellationToken cancellationToken = default)
+        {
+            ArgumentNullException.ThrowIfNull(message);
+            ArgumentNullException.ThrowIfNull(type);
+            await _publishEndpoint.Publish(message, type, cancellationToken);
         }
     }
 }

@@ -56,13 +56,13 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
                         user.SetLockoutEnd(DateTimeOffset.UtcNow.AddMilliseconds(authenticationSettings.LockoutDurationInMilliseconds));
                     }
                     userRepository.Update(user);
-                    await unitOfWork.SaveChangeAsync(cancellationToken);
+                    await unitOfWork.SaveChangesAsync(cancellationToken);
                 }
                 return Result.Failure<LoginResponse>(LoginErrors.InvalidCredentials);
             }
 
             // Get user roles
-            var roles = await roleRepository.GetRolesByUserIdAsync(user.Id);
+            var roles = await roleRepository.GetRolesByUserIdAsync(user.Id, cancellationToken);
 
             // Generate tokens
             string accessToken = tokenProvider.GenerateAccessToken(user, roles.Select(r => r.NormalizedName).ToList());
@@ -97,7 +97,7 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
 
             // Update user
             userRepository.Update(user);
-            await unitOfWork.SaveChangeAsync(cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success(
                 new LoginResponse(

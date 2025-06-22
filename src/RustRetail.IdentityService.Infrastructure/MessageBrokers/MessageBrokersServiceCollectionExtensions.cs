@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RustRetail.IdentityService.Application.Abstractions.MessageBrokers;
 using RustRetail.IdentityService.Infrastructure.MessageBrokers.RabbitMQ;
+using RustRetail.SharedApplication.Behaviors.Messaging;
 
 namespace RustRetail.IdentityService.Infrastructure.MessageBrokers
 {
@@ -12,7 +12,7 @@ namespace RustRetail.IdentityService.Infrastructure.MessageBrokers
             IConfiguration configuration)
         {
             services.AddRabbitMQ(configuration);
-            services.AddScoped<IMessageSender, MassTransitMessageSender>();
+            services.AddScoped<IMessageBus, MassTransitMessageSender>();
 
             return services;
         }

@@ -46,7 +46,7 @@ namespace RustRetail.IdentityService.Application.Authentication.Register
                 ?? throw new InvalidOperationException("Role not found.")
             });
             await userRepository.AddAsync(user, cancellationToken);
-            await unitOfWork.SaveChangeAsync(cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success();
         }

@@ -54,7 +54,7 @@ namespace RustRetail.IdentityService.Application.Authentication.RevokeRefreshTok
                 return Result.Failure(RefreshTokenErrors.TokenNotFound);
             }
             user.Tokens.Remove(refreshToken);
-            await unitOfWork.SaveChangeAsync(cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success();
         }

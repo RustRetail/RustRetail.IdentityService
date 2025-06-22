@@ -52,7 +52,7 @@ namespace RustRetail.IdentityService.Application.Authentication.RotateAccessToke
             }
 
             // Generate new tokens
-            var roles = await roleRepository.GetRolesByUserIdAsync(user.Id);
+            var roles = await roleRepository.GetRolesByUserIdAsync(user.Id, cancellationToken);
             var newAccessToken = tokenProvider.GenerateAccessToken(user, roles.Select(r => r.NormalizedName).ToList());
             var newRefreshToken = tokenProvider.GenerateRefreshToken();
 
@@ -62,7 +62,7 @@ namespace RustRetail.IdentityService.Application.Authentication.RotateAccessToke
             refreshToken.ExpiryDateTime = tokenProvider.RefreshTokenExpiry();
 
             userRepository.Update(user);
-            await unitOfWork.SaveChangeAsync(cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success(new RotateAccessTokenResponse(newAccessToken, newRefreshToken));
         }

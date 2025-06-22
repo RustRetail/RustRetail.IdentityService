@@ -37,7 +37,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
                     cancellationToken);
             }
             _userRepository.Update(user);
-            await unitOfWork.SaveChangeAsync(cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
         public bool IsUserLockedOut(User user, DateTimeOffset currentDateTime)
@@ -53,7 +53,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
         {
             user.LockoutEnd = lockoutEndTimestamp;
             _userRepository.Update(user);
-            await unitOfWork.SaveChangeAsync(cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
         public async Task ResetFailedLoginAttemptsAsync(User user, CancellationToken cancellationToken = default)
@@ -61,7 +61,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
             user.AccessFailedCount = 0;
             user.LockoutEnd = null;
             _userRepository.Update(user);
-            await unitOfWork.SaveChangeAsync(cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
         public bool ValidatePassword(User user, string password)
