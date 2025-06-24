@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning.Builder;
 using Asp.Versioning;
 using RustRetail.SharedInfrastructure.MinimalApi;
+using RustRetail.SharedInfrastructure.Logging.Serilog;
 
 namespace RustRetail.IdentityService.API.Configuration
 {
@@ -17,6 +18,8 @@ namespace RustRetail.IdentityService.API.Configuration
             app.UseMinimalApiEndpoints();
 
             app.UseExceptionHandler();
+
+            app.UseSharedSerilogRequestLogging();
 
             return app;
         }
