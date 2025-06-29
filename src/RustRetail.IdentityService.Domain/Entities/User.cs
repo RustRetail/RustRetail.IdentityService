@@ -77,6 +77,7 @@ namespace RustRetail.IdentityService.Domain.Entities
                 NormalizedEmail = email.ToUpperInvariant(),
                 EmailConfirmed = false,
                 PasswordHash = passwordHash,
+                CreatedDateTime = DateTimeOffset.UtcNow,
             };
             user.AddDomainEvent(new UserRegisteredDomainEvent(user.Id, user.UserName, user.Email));
             return user;
