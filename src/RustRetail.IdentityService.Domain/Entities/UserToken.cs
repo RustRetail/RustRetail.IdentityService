@@ -24,5 +24,17 @@ namespace RustRetail.IdentityService.Domain.Entities
         public UserToken()
         {
         }
+
+        public static UserToken Create(string provider, string name, string value, DateTimeOffset? expiryDateTime = null)
+        {
+            return new UserToken
+            {
+                Provider = provider,
+                Name = name,
+                Value = value,
+                CreatedDateTime = DateTimeOffset.UtcNow,
+                ExpiryDateTime = expiryDateTime
+            };
+        }
     }
 }
