@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Options;
-using RustRetail.IdentityService.Application.Abstractions.Authentication;
-using RustRetail.IdentityService.Application.Configuration.Authentication;
+﻿using RustRetail.IdentityService.Application.Abstractions.Authentication;
+using RustRetail.IdentityService.Application.Abstractions.Services;
 using RustRetail.IdentityService.Contracts.Authentication.Login;
 using RustRetail.IdentityService.Domain.Constants;
 using RustRetail.IdentityService.Domain.Entities;
@@ -13,21 +12,19 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
 {
     internal class LoginCommandHandler(
         IJwtTokenProvider tokenProvider,
-        IPasswordHasher passwordHasher,
         IIdentityUnitOfWork unitOfWork,
-        IOptions<AuthenticationSettingOptions> options)
+        IUserService userService,
+        IRoleService roleService)
         : ICommandHandler<LoginCommand, LoginResponse>
     {
         readonly IUserRepository userRepository = unitOfWork.GetRepository<IUserRepository>();
-        readonly AuthenticationSettingOptions authenticationSettings = options.Value;
-        readonly IRoleRepository roleRepository = unitOfWork.GetRepository<IRoleRepository>();
 
         public async Task<Result<LoginResponse>> Handle(
             LoginCommand request,
             CancellationToken cancellationToken)
         {
             // Get the user by email
-            var user = await userRepository.GetUserByEmailAsync(
+            var user = await userService.GetUserByEmailAsync(
                 request.Email,
                 true,
                 true,
@@ -40,60 +37,34 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
             }
 
             // Check if the user is locked out
-            if (user.IsUserLockedOut(DateTimeOffset.UtcNow))
+            if (userService.IsUserLockedOut(user, DateTimeOffset.UtcNow))
             {
                 return Result.Failure<LoginResponse>(LoginErrors.UserLockedOut);
             }
 
             // Validate the password
-            if (!passwordHasher.VerifyPassword(request.Password, user.PasswordHash))
+            if (!userService.ValidateUserPassword(user, request.Password))
             {
-                if (user.LockoutEnabled)
-                {
-                    user.IncreaseAccessFailedCount();
-                    if (user.AccessFailedCount >= authenticationSettings.MaxFailedLoginAttempts)
-                    {
-                        user.SetLockoutEnd(DateTimeOffset.UtcNow.AddMilliseconds(authenticationSettings.LockoutDurationInMilliseconds));
-                    }
-                    userRepository.Update(user);
-                    await unitOfWork.SaveChangesAsync(cancellationToken);
-                }
+                await userService.IncreaseFailedLoginAttemptsAsync(user, cancellationToken);
                 return Result.Failure<LoginResponse>(LoginErrors.InvalidCredentials);
             }
 
             // Get user roles
-            var roles = await roleRepository.GetRolesByUserIdAsync(user.Id, cancellationToken);
+            var userRoles = await roleService.GetRolesByUserIdAsync(user.Id, cancellationToken);
 
             // Generate tokens
-            string accessToken = tokenProvider.GenerateAccessToken(user, roles.Select(r => r.NormalizedName).ToList());
+            string accessToken = tokenProvider.GenerateAccessToken(user, userRoles);
             string refreshToken = tokenProvider.GenerateRefreshToken();
 
             // Reset access failed count
             user.ResetAccessFailedCount();
 
             // Add or update user's refresh token
-            var existingToken = user.Tokens.FirstOrDefault(t =>
-                t.Name == UserTokenConstants.RefreshTokenName &&
-                t.Provider == UserTokenConstants.RustRetailIdentityServiceProvider);
-
-            if (existingToken == null)
-            {
-                existingToken = new UserToken()
-                {
-                    Provider = UserTokenConstants.RustRetailIdentityServiceProvider,
-                    Name = UserTokenConstants.RefreshTokenName,
-                    Value = refreshToken,
-                    CreatedDateTime = DateTimeOffset.UtcNow,
-                    ExpiryDateTime = tokenProvider.RefreshTokenExpiry(),
-                };
-                user.Tokens.Add(existingToken);
-            }
-            else
-            {
-                existingToken.Value = refreshToken;
-                existingToken.CreatedDateTime = DateTimeOffset.UtcNow;
-                existingToken.ExpiryDateTime = tokenProvider.RefreshTokenExpiry();
-            }
+            var userRefreshToken = UserToken.Create(UserTokenConstants.RustRetailIdentityServiceProvider,
+                UserTokenConstants.RefreshTokenName,
+                refreshToken,
+                tokenProvider.RefreshTokenExpiry());
+            userService.AddOrUpdateUserToken(user, userRefreshToken);
 
             // Update user
             userRepository.Update(user);

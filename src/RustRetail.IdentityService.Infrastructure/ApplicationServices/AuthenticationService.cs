@@ -28,7 +28,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
                 return Result.Failure<LoginResponse>(LoginErrors.UserLockedOut);
             }
             // Validate the password
-            if (!userService.ValidatePassword(user, password))
+            if (!userService.ValidateUserPassword(user, password))
             {
                 // To do: Raise login failed domain event
                 return Result.Failure<LoginResponse>(LoginErrors.InvalidCredentials);
