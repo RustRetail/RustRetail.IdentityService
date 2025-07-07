@@ -13,6 +13,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IOutboxMessageService, IdentityOutboxMessageService>();
+            services.AddScoped<IRoleService, RoleService>();
             return services;
         }
     }
