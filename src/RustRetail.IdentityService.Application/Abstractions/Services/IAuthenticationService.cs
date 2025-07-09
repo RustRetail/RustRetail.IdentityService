@@ -5,6 +5,6 @@ namespace RustRetail.IdentityService.Application.Abstractions.Services
 {
     public interface IAuthenticationService
     {
-        Task<Result<LoginResponse>> LoginAsync(string email, string password, CancellationToken cancellationToken = default);
+        Task<Result<LoginResponse>> LoginWithEmailAsync(string email, string password, CancellationToken cancellationToken = default);
     }
 }

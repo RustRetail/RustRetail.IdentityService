@@ -36,11 +36,6 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
             }
         }
 
-        public async Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default)
-        {
-            return await _userRepository.GetUserByEmailAsync(email, cancellationToken);
-        }
-
         public Task<User?> GetUserByEmailAsync(string email, bool asTracking = true, bool asSplitQuery = false, CancellationToken cancellationToken = default, params Expression<Func<User, object>>[] includes)
         {
             return _userRepository.GetUserByEmailAsync(
@@ -73,6 +68,12 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
         public bool IsUserLockedOut(User user, DateTimeOffset currentDateTime)
         {
             return user.IsUserLockedOut(currentDateTime);
+        }
+
+        public async Task<int> UpdateUserAsync(User user, CancellationToken cancellationToken = default)
+        {
+            _userRepository.Update(user);
+            return await unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
         public bool ValidateUserPassword(User user, string password)
