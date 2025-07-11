@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace RustRetail.IdentityService.Domain.Repositories
 {
-    public interface IUserRepository : IRepository<User, Guid>
+    public interface IUserRepository : IRepository<User, Guid>, ISpecificationRepository<User, Guid>
     {
         Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default);
         Task<User?> GetUserByUserNameAsync(string userName, CancellationToken cancellationToken = default);
