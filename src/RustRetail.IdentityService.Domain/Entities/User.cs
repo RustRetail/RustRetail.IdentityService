@@ -50,10 +50,10 @@ namespace RustRetail.IdentityService.Domain.Entities
             }
         }
 
-        public void SetLockoutEnd(DateTimeOffset lockoutEnd)
+        public void SetLockoutEnd(DateTimeOffset lockoutEnd, string reason = "", long durationInMillisecond = 900000)
         {
             LockoutEnd = lockoutEnd;
-            AddDomainEvent(new UserLockedOutDomainEvent(Id));
+            AddDomainEvent(new UserLockedOutDomainEvent(Id, reason, durationInMillisecond));
         }
 
         public bool IsUserLockedOut(DateTimeOffset currentDateTime)

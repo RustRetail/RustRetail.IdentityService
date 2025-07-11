@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RustRetail.IdentityService.Domain.Events.User;
 using RustRetail.SharedApplication.Abstractions;
 using RustRetail.SharedApplication.Behaviors.Outbox;
@@ -9,7 +8,6 @@ using RustRetail.SharedKernel.Domain.Models;
 namespace RustRetail.IdentityService.Application.Authentication.Register
 {
     internal class UserRegisteredDomainEventHandler(
-        ILogger<UserRegisteredDomainEventHandler> logger,
         IOutboxMessageService outboxMessageService) :
         IDomainEventHandler<DomainEventNotification<UserRegisteredDomainEvent>>
     {

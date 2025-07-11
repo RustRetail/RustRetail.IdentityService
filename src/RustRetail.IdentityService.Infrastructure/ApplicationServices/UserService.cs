@@ -2,6 +2,7 @@
 using RustRetail.IdentityService.Application.Abstractions.Authentication;
 using RustRetail.IdentityService.Application.Abstractions.Services;
 using RustRetail.IdentityService.Application.Configuration.Authentication;
+using RustRetail.IdentityService.Domain.Constants;
 using RustRetail.IdentityService.Domain.Entities;
 using RustRetail.IdentityService.Domain.Repositories;
 using System.Linq.Expressions;
@@ -58,7 +59,9 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
                 user.IncreaseAccessFailedCount();
                 if (user.AccessFailedCount >= _authenticationSettings.MaxFailedLoginAttempts)
                 {
-                    user.SetLockoutEnd(DateTimeOffset.UtcNow.AddMicroseconds(_authenticationSettings.LockoutDurationInMilliseconds));
+                    user.SetLockoutEnd(DateTimeOffset.UtcNow.AddMilliseconds(_authenticationSettings.LockoutDurationInMilliseconds),
+                        AuthenticationMessageConstants.LoginLockoutReason,
+                        _authenticationSettings.LockoutDurationInMilliseconds);
                 }
                 _userRepository.Update(user);
                 await unitOfWork.SaveChangesAsync(cancellationToken);

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RustRetail.IdentityService.Domain.Events.User;
 using RustRetail.SharedApplication.Abstractions;
 using RustRetail.SharedApplication.Behaviors.Outbox;
@@ -9,7 +8,6 @@ using RustRetail.SharedKernel.Domain.Models;
 namespace RustRetail.IdentityService.Application.Authentication.Login
 {
     internal class UserLockedOutDomainEventHandler(
-        ILogger<UserLockedOutDomainEventHandler> logger,
         IOutboxMessageService outboxMessageService)
         : IDomainEventHandler<DomainEventNotification<UserLockedOutDomainEvent>>
     {
@@ -19,7 +17,11 @@ namespace RustRetail.IdentityService.Application.Authentication.Login
         {
             var @event = notification.DomainEvent;
 
-            var integrationEvent = new UserLockedOutEvent(@event.UserId);
+            var integrationEvent = new UserLockedOutEvent(@event.UserId)
+            {
+                Reason = @event.Reason,
+                LockoutDurationInMilliseconds = (int)@event.LockoutDurationInMilliseconds,
+            };
             await outboxMessageService.AddOutboxMessageAsync(
                 new OutboxMessage(
                     integrationEvent.GetType().AssemblyQualifiedName!,
