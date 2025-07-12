@@ -82,5 +82,22 @@ namespace RustRetail.IdentityService.Domain.Entities
             user.AddDomainEvent(new UserRegisteredDomainEvent(user.Id, user.UserName, user.Email));
             return user;
         }
+
+        public void CreateOrUpdateProfile(UserProfile profile)
+        {
+            if (Profile is null)
+            {
+                Profile = profile;
+            }
+            else
+            {
+                Profile.FirstName = profile.FirstName;
+                Profile.LastName = profile.LastName;
+                Profile.Bio = profile.Bio;
+                Profile.DateOfBirth = profile.DateOfBirth;
+                Profile.Gender = profile.Gender;
+            }
+            AddDomainEvent(new CreateOrUpdateUserProfileDomainEvent(Id));
+        }
     }
 }

@@ -5,10 +5,10 @@ namespace RustRetail.IdentityService.Application.Users.GetProfileById
 {
     internal class GetUserProfileByIdSpecification : Specification<User, Guid>
     {
-        public GetUserProfileByIdSpecification(Guid userId)
+        public GetUserProfileByIdSpecification(Guid userId, bool asTracking = false)
             : base(u => u.Id == userId)
         {
-            AsTracking = false;
+            AsTracking = asTracking;
             AddInclude(u => u.Profile);
         }
     }

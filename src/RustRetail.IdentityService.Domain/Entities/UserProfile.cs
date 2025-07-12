@@ -25,5 +25,23 @@ namespace RustRetail.IdentityService.Domain.Entities
         public DateTime? DateOfBirth { get; set; }
 
         public User User { get; set; } = default!;
+
+        public static UserProfile Create(Guid userId,
+            string? firstName,
+            string? lastName,
+            Gender? gender,
+            string? bio,
+            DateTime? dateOfBirth)
+        {
+            return new UserProfile
+            {
+                Id = userId,
+                FirstName = firstName,
+                LastName = lastName,
+                Gender = gender,
+                Bio = bio,
+                DateOfBirth = dateOfBirth
+            };
+        }
     }
 }
