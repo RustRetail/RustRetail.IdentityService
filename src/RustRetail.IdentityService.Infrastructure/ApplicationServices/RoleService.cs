@@ -12,7 +12,7 @@ namespace RustRetail.IdentityService.Infrastructure.ApplicationServices
         public async Task<List<string>> GetRolesByUserIdAsync(Guid userId, CancellationToken cancellationToken)
         {
             return (await _roleRepository.GetRolesByUserIdAsync(userId, cancellationToken))
-                .Select(r => r.NormalizedName)
+                .Select(r => r.Name)
                 .ToList();
         }
     }

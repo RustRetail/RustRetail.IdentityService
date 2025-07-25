@@ -53,7 +53,7 @@ namespace RustRetail.IdentityService.Application.Authentication.RotateAccessToke
 
             // Generate new tokens
             var roles = await roleRepository.GetRolesByUserIdAsync(user.Id, cancellationToken);
-            var newAccessToken = tokenProvider.GenerateAccessToken(user, roles.Select(r => r.NormalizedName).ToList());
+            var newAccessToken = tokenProvider.GenerateAccessToken(user, roles.Select(r => r.Name).ToList());
             var newRefreshToken = tokenProvider.GenerateRefreshToken();
 
             // Rotate existing refresh token

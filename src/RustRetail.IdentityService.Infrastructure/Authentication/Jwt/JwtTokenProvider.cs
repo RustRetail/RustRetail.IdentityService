@@ -23,8 +23,8 @@ namespace RustRetail.IdentityService.Infrastructure.Authentication.Jwt
             var claims = new List<Claim>
             {
                 new Claim(JwtClaimTypes.Subject, user.Id.ToString()),
-                new Claim(JwtClaimTypes.Email, user.NormalizedEmail),
-                new Claim(JwtClaimTypes.UserName, user.NormalizedUserName),
+                new Claim(JwtClaimTypes.Email, user.Email),
+                new Claim(JwtClaimTypes.UserName, user.UserName),
                 new Claim(JwtClaimTypes.Jti, Guid.NewGuid().ToString())
             };
             foreach (var role in roles)
