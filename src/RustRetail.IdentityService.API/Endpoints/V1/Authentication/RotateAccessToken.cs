@@ -29,7 +29,7 @@ namespace RustRetail.IdentityService.API.Endpoints.V1.Authentication
                 return ResultExtension.HandleFailure(Result.Failure(AuthenticationErrors.RefreshTokenCookieNotFound), httpContext);
             }
             var command = new RotateAccessTokenCommand(refreshToken);
-            var result = await sender.Send(command);
+            var result = await sender.Send(command, cancellationToken);
 
             if (!result.IsSuccess)
             {

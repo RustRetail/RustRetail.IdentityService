@@ -25,7 +25,7 @@ namespace RustRetail.IdentityService.API.Endpoints.V1.Users
             CancellationToken cancellationToken)
         {
             var query = new GetUserProfileByIdQuery(id);
-            var result = await sender.Send(query);
+            var result = await sender.Send(query, cancellationToken);
             return result.IsSuccess
                 ? Results.Ok(new SuccessResultWrapper<GetUserProfileByIdResponse>(result, httpContext))
                 : ResultExtension.HandleFailure(result, httpContext);
