@@ -25,7 +25,7 @@ namespace RustRetail.IdentityService.Application.Users.CreateOrUpdateProfile
                 return Result.Failure(AuthenticationErrors.UserNotAuthenticated);
             }
 
-            var user = await _userRepository.GetAsync(new GetUserProfileByIdSpecification(Guid.Parse(currentUserService.UserId), true));
+            var user = await _userRepository.GetAsync(new GetUserProfileByIdSpecification(Guid.Parse(currentUserService.UserId), true), cancellationToken);
             if (user is null)
             {
                 return Result.Failure(UserErrors.UserNotFoundWithId);
