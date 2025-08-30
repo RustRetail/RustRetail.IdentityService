@@ -1,0 +1,42 @@
+name: Publish IdentityService Image
+
+on:
+ push:
+  branches:
+  - main
+
+jobs:
+  build-and-push:
+   runs-on: ubuntu-latest
+
+   permissions:
+    contents: read
+    packages: write
+
+   steps:
+   - name: Checkout code
+     uses: actions/checkout@v4
+
+   - name: Log in to GHCR
+     uses: docker/login-action@v3
+     with:
+      registry: ghcr.io
+      username: ${{ github.actor }}
+      password: ${{ secrects.GITHUB_TOKEN }}
+
+   - name: Extract metadata (tags, labels)
+     id: meta
+     uses: docker/metadata-action@v5
+     with:
+      images: ghcr.io/${{ github.repository_owner }}/rustretail.identityservice
+
+   - name: Build and push Docker image
+     uses: docker/build-push-action@v5
+     with:
+      context: ./src
+      file: ./src/RustRetail.IdentityService.API/Dockerfile
+      push: true
+      tags: |
+       ghcr.io/${{ github.repository_owner }}/rustretail.identityservice:latest
+       ghcr.io/${{ github.repository_owner }}/rustretail.identityservice:${{ github.sha }}
+      labels: ${{ steps.meta.outputs.labels }}
