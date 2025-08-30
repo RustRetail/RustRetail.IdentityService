@@ -24,6 +24,7 @@ namespace RustRetail.IdentityService.API.Configuration.Authentication.Jwt
                 ValidAudience = _jwtOptions.Audience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
                 ClockSkew = TimeSpan.Zero,
+                RoleClaimType = "roles",
             };
         }
 
