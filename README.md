@@ -1,1 +1,1 @@
-"# RustRetail.IdentityService" 
+# RustRetail.IdentityService
