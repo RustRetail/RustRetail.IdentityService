@@ -28,7 +28,7 @@ jobs:
      id: meta
      uses: docker/metadata-action@v5
      with:
-      images: ghcr.io/${{ github.repository_owner }}/rustretail.identityservice
+      images: ghcr.io/rustretail/rustretail.identityservice
 
    - name: Build and push Docker image
      uses: docker/build-push-action@v5
@@ -37,6 +37,6 @@ jobs:
       file: ./src/RustRetail.IdentityService.API/Dockerfile
       push: true
       tags: |
-       ghcr.io/${{ github.repository_owner }}/rustretail.identityservice:latest
-       ghcr.io/${{ github.repository_owner }}/rustretail.identityservice:${{ github.sha }}
+       ghcr.io/rustretail/rustretail.identityservice:latest
+       ghcr.io/rustretail/rustretail.identityservice:${{ github.sha }}
       labels: ${{ steps.meta.outputs.labels }}
