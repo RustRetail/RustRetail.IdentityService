@@ -1,1 +1,3 @@
-# RustRetail.IdentityService
+﻿# RustRetail.IdentityService
+
+## 🚀 Getting Started
