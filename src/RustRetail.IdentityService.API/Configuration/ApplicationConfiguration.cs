@@ -10,15 +10,10 @@ namespace RustRetail.IdentityService.API.Configuration
         internal static WebApplication ConfigureApplicationPipeline(
             this WebApplication app)
         {
-            app.UseCors(Authentication.Cors.CorsServiceCollectionExtensions.AllowedAllOriginsPolicy)
-                .UseHttpsRedirection()
-                .UseAuthentication()
+            app.UseAuthentication()
                 .UseAuthorization();
-
             app.UseMinimalApiEndpoints();
-
             app.UseExceptionHandler();
-
             app.UseSharedSerilogRequestLogging();
 
             return app;

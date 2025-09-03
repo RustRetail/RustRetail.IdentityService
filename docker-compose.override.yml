@@ -1,11 +1,7 @@
 services:
   rustretail.identityservice.api:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${ASPNETCORE_Kestrel__Certificates__Default__Password}
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ConnectionStrings__IdentityDatabase=Host=rustretail.identityservice.postgres;Port=5432;Database=rustretail_identityservice;Username=postgres;Password=postgres
       - Jwt__Issuer=${Jwt__Issuer}
       - Jwt__Audience=${Jwt__Audience}
@@ -13,9 +9,6 @@ services:
       - RabbitMQ__Host=${RabbitMQ__Host}
     ports:
       - "8080:8080"
-      - "8081:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
